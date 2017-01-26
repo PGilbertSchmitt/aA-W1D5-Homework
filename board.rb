@@ -4,6 +4,20 @@ class Board
   BOARD_SIZE = 9
   attr_reader :bomb_counter
 
+  def self.get_neighbors(pos)
+    x, y = pos
+    [
+      [x + 1, y - 1],
+      [x + 1, y    ],
+      [x + 1, y + 1],
+      [x    , y + 1],
+      [x - 1, y + 1],
+      [x - 1, y    ],
+      [x - 1, y - 1],
+      [x    , y - 1]
+    ]
+  end
+
   def initialize(bomb_count = 10)
     @grid = Array.new(BOARD_SIZE) { Array.new(BOARD_SIZE) { Tile.new } }
     fill_bombs(bomb_count)
