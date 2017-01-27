@@ -38,12 +38,17 @@ class Board
     self[pos].reveal
   end
 
+  def toggle_tile_flag(pos)
+    self[pos].toggle_flag
+  end
+
   def display
     puts "    #{(0..8).to_a.join(' ')}"
     puts "  #{"_" * (BOARD_SIZE + 1) * 2}"
     @grid.each_with_index do |row, i|
       puts "#{i} | #{build_row_string(row)}"
     end
+    nil
   end
 
   def build_row_string(row)

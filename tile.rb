@@ -22,16 +22,16 @@ class Tile
     @is_revealed = true
   end
 
+  def flagged?
+    @is_flagged
+  end
+
+  def toggle_flag
+    @is_flagged = not @is_flagged
+  end
+
   def set_neighbor_count(count)
     @neighbor_count = count
-  end
-
-  def flag
-    @is_flagged = true
-  end
-
-  def unflag
-    @is_flagged = false
   end
 
   def render
