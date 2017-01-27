@@ -18,9 +18,33 @@ class Board
     ]
   end
 
+  def self.valid_neighbor(pos)
+    x, y = pos
+    x.between?(0, BOARD_SIZE - 1) &&
+      y.between?(0, BOARD_SIZE - 1)
+  end
+
   def initialize(bomb_count = 10)
     @grid = Array.new(BOARD_SIZE) { Array.new(BOARD_SIZE) { Tile.new } }
     fill_bombs(bomb_count)
+    set_bomb_counts
+  end
+
+  def set_bomb_counts
+    @grid.each_with_index do |row, i|
+      row.each_with_index do |tile, j|
+        if tile.bomb?
+          neighbor_positions = self.class.get_neighbors([i, j])
+          inc_bomb_counts(neighbor_positions)
+        end
+      end
+    end
+  end
+
+  def inc_bomb_counts(neighbors)
+    neighbors.each do |neighbor|
+      self[neighbor].inc_bomb_count if self.class.valid_neighbor(neighbor)
+    end
   end
 
   def fill_bombs(num_of_bombs)

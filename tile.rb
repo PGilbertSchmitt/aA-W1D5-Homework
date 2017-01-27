@@ -3,7 +3,7 @@ class Tile
     @is_bomb = false
     @is_revealed = false
     @is_flagged = false
-    @neighbor_count = 0
+    @neighbor_bomb_count = 0
   end
 
   def bomb?
@@ -27,16 +27,16 @@ class Tile
   end
 
   def toggle_flag
-    @is_flagged = not @is_flagged
+    @is_flagged = !@is_flagged
   end
 
-  def set_neighbor_count(count)
-    @neighbor_count = count
+  def inc_bomb_count
+    @neighbor_bomb_count += 1
   end
 
   def render
     if @is_revealed
-      show = @is_bomb ? 'B' : @neighbor_count
+      show = @is_bomb ? 'B' : @neighbor_bomb_count
       show = '-' if show == 0
       return show
     else
