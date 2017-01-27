@@ -1,4 +1,5 @@
 class Tile
+  attr_reader :neighbor_bomb_count
   def initialize
     @is_bomb = false
     @is_revealed = false

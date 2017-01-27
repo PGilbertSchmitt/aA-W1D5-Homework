@@ -15,7 +15,7 @@ class Board
       [x - 1, y    ],
       [x - 1, y - 1],
       [x    , y - 1]
-    ]
+    ].select { |position| Board.valid_neighbor(position)}
   end
 
   def self.valid_neighbor(pos)
@@ -28,6 +28,14 @@ class Board
     @grid = Array.new(BOARD_SIZE) { Array.new(BOARD_SIZE) { Tile.new } }
     fill_bombs(bomb_count)
     set_bomb_counts
+  end
+
+  def expand(pos)
+    self[pos].reveal
+    return unless self[pos].neighbor_bomb_count == 0
+    self.class.get_neighbors(pos).each do |neighbor|
+      expand(neighbor) unless self[neighbor].revealed?
+    end
   end
 
   def set_bomb_counts
@@ -43,7 +51,7 @@ class Board
 
   def inc_bomb_counts(neighbors)
     neighbors.each do |neighbor|
-      self[neighbor].inc_bomb_count if self.class.valid_neighbor(neighbor)
+      self[neighbor].inc_bomb_count
     end
   end
 
