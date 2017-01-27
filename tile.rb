@@ -37,7 +37,7 @@ class Tile
   def render
     if @is_revealed
       show = @is_bomb ? 'B' : @neighbor_count
-      show = '-' if show.zero?
+      show = '-' if show == 0
       return show
     else
       @is_flagged ? 'F' : ' '
