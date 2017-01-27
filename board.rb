@@ -34,6 +34,18 @@ class Board
     end
   end
 
+  def display
+    puts "    #{(0..8).to_a.join(' ')}"
+    puts "  #{"_" * (BOARD_SIZE + 1) * 2}"
+    @grid.each_with_index do |row, i|
+      puts "#{i} | #{build_row_string(row)}"
+    end
+  end
+
+  def build_row_string(row)
+    row.map { |tile| tile.render }.join(' ')
+  end
+
   def [](pos)
     x, y = pos
     @grid[x][y]
