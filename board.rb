@@ -34,6 +34,10 @@ class Board
     end
   end
 
+  def reveal_tile(pos)
+    self[pos].reveal
+  end
+
   def display
     puts "    #{(0..8).to_a.join(' ')}"
     puts "  #{"_" * (BOARD_SIZE + 1) * 2}"
